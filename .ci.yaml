@@ -1,0 +1,21 @@
+stages:
+    - build-stage
+    - deploy-stage
+
+build:
+    stage: build-stage
+    script:
+        - npm install
+    artifacts:
+        untracked: false
+        when: on_success
+        paths:
+            - node_modules
+            - package-lock.json
+
+deploy:
+    stage: deploy-stage 
+    image: node
+    script:
+        - chmod +x deploy.sh
+        - bash deploy.sh
